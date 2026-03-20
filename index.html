@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: sans-serif; padding: 24px; background: transparent; color: #111; }
+
+.policy-row {
+  display: flex; align-items: stretch;
+  margin-bottom: 24px; border: 1px solid #e8e8e8;
+  border-radius: 12px; overflow: hidden;
+}
+.policy-image-wrap {
+  flex: 0 0 280px; position: relative;
+  cursor: pointer; overflow: hidden; min-height: 220px;
+}
+.policy-image-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; transition: opacity 0.2s;
+}
+.policy-image-wrap:hover img { opacity: 0.88; }
+.img-placeholder {
+  width: 100%; height: 100%; min-height: 220px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+}
+.policy-image-wrap:hover .img-placeholder { opacity: 0.8; }
+.img-placeholder svg { width: 36px; height: 36px; opacity: 0.5; }
+.img-placeholder-label { font-size: 12px; font-weight: 600; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.05em; }
+.click-hint {
+  position: absolute; bottom: 12px; left: 12px;
+  background: rgba(0,0,0,0.5); color: #fff;
+  font-size: 11px; font-weight: 600;
+  padding: 4px 10px; border-radius: 20px; pointer-events: none;
+}
+.policy-text {
+  flex: 1; padding: 28px; background: #fff;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.policy-who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+.policy-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+.policy-summary { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 18px; }
+.policy-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  width: fit-content; padding: 8px 16px;
+  border-radius: 8px; border: 1px solid; transition: background 0.15s;
+}
+.policy-cta svg { width: 14px; height: 14px; }
+
+/* RETIREES — green */
+.row-retirees .img-placeholder { background: #f0faf4; }
+.row-retirees .img-placeholder svg { stroke: #2d7a4a; }
+.row-retirees .img-placeholder-label { color: #2d7a4a; }
+.row-retirees .policy-who { color: #2d7a4a; }
+.row-retirees .policy-cta { color: #2d7a4a; border-color: #a8dbb9; background: #f0faf4; }
+.row-retirees .policy-cta:hover { background: #d8f0e2; }
+
+/* TAXPAYERS — blue */
+.row-taxpayers .img-placeholder { background: #e8f4fd; }
+.row-taxpayers .img-placeholder svg { stroke: #0c5fa5; }
+.row-taxpayers .img-placeholder-label { color: #0c5fa5; }
+.row-taxpayers .policy-who { color: #0c5fa5; }
+.row-taxpayers .policy-cta { color: #0c5fa5; border-color: #b5d4f4; background: #e8f4fd; }
+.row-taxpayers .policy-cta:hover { background: #d0e9f9; }
+
+/* FUTURE GENERATIONS — red */
+.row-future .img-placeholder { background: #fdf0f0; }
+.row-future .img-placeholder svg { stroke: #a32d2d; }
+.row-future .img-placeholder-label { color: #a32d2d; }
+.row-future .policy-who { color: #a32d2d; }
+.row-future .policy-cta { color: #a32d2d; border-color: #f0bebe; background: #fdf0f0; }
+.row-future .policy-cta:hover { background: #f7dada; }
+
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5); z-index: 100;
+  align-items: center; justify-content: center; padding: 24px;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: #fff; border-radius: 16px; padding: 36px;
+  max-width: 580px; width: 100%; max-height: 85vh;
+  overflow-y: auto; position: relative;
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid #ddd; background: #f5f5f5; cursor: pointer;
+  font-size: 16px; color: #666;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close:hover { background: #eee; }
+.modal-who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 14px; }
+.modal-intro { font-size: 14px; color: #444; line-height: 1.7; margin-bottom: 4px; }
+.modal-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin: 20px 0 10px; }
+.modal-policies { display: flex; flex-direction: column; gap: 12px; }
+.modal-policy { background: #f7f7f7; border-radius: 8px; padding: 14px 16px; }
+.modal-policy-name { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+.modal-policy-desc { font-size: 13px; color: #555; line-height: 1.65; }
+
+@media (max-width: 600px) {
+  .policy-row { flex-direction: column; }
+  .policy-image-wrap { flex: 0 0 180px; }
+}
+</style>
+</head><body>
+
+<!-- ============================================================
+     HOW TO EDIT THIS FILE
+     - IMAGES: put your image files in the same GitHub folder,
+       then replace "retirees.jpg" / "taxpayers.jpg" / "future.jpg"
+       with your actual filenames.
+     - CARD TEXT: replace every "Insert..." in the HTML below.
+     - POPUP TEXT: scroll to the <script> section at the bottom
+       and replace every "Insert..." inside the data object.
+     ============================================================ -->
+
+<!-- ROW 1: RETIREES -->
+<div class="policy-row row-retirees">
+  <div class="policy-image-wrap" onclick="openModal('retirees')">
+    <img src="retirees.jpg" alt="Retirees"
+         onerror="this.style.display='none';document.getElementById('ph-retirees').style.display='flex';">
+    <div class="img-placeholder" id="ph-retirees" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+      <span class="img-placeholder-label">Add image: retirees.jpg</span>
+    </div>
+    <div class="click-hint">Click to explore</div>
+  </div>
+  <div class="policy-text">
+    <div class="policy-who">Cost borne by retirees</div>
+    <div class="policy-summary">
+      <p style="font-size:15px;font-weight:500;color:#111;margin-bottom:10px;">Implementing policies such as increasing the state retirement age or removing the triple lock guarantee would improve pension sustainability, at the cost of current retirees:</p>
+      <ul style="list-style:disc;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-weight:400;color:#333;">
+        <li>The removal of the triple lock or increasing the retirement age would decrease the costs of the pension system, making it more resilient in the short term against the UK's demographic changes.</li>
+        <li>However these policies come at a clear trade-off to current retirees, as they would reduce the value of pensions or delay access to income, potentially increasing financial insecurity and lowering living standards among pensioners.</li>
+      </ul>
+    </div>
+    <div class="policy-cta" onclick="openModal('retirees')">
+      Explore policies
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2: TAXPAYERS -->
+<div class="policy-row row-taxpayers">
+  <div class="policy-image-wrap" onclick="openModal('taxpayers')">
+    <img src="taxpayers.jpg" alt="Taxpayers"
+         onerror="this.style.display='none';document.getElementById('ph-taxpayers').style.display='flex';">
+    <div class="img-placeholder" id="ph-taxpayers" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+        <path d="M16 7V5a2 2 0 0 0-4 0v2"/><path d="M8 7V5a2 2 0 0 0-4 0v2"/>
+        <line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+      </svg>
+      <span class="img-placeholder-label">Add image: taxpayers.jpg</span>
+    </div>
+    <div class="click-hint">Click to explore</div>
+  </div>
+  <div class="policy-text">
+    <div class="policy-who">Cost borne by taxpayers</div>
+    <div class="policy-summary">Insert summary text here — 2 to 3 sentences describing what this category of reform involves.</div>
+    <div class="policy-cta" onclick="openModal('taxpayers')">
+      Explore policies
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3: FUTURE GENERATIONS -->
+<div class="policy-row row-future">
+  <div class="policy-image-wrap" onclick="openModal('future')">
+    <img src="future.jpg" alt="Future generations"
+         onerror="this.style.display='none';document.getElementById('ph-future').style.display='flex';">
+    <div class="img-placeholder" id="ph-future" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+      <span class="img-placeholder-label">Add image: future.jpg</span>
+    </div>
+    <div class="click-hint">Click to explore</div>
+  </div>
+  <div class="policy-text">
+    <div class="policy-who">Cost borne by future generations</div>
+    <div class="policy-summary">Insert summary text here — 2 to 3 sentences describing what this category of reform involves.</div>
+    <div class="policy-cta" onclick="openModal('future')">
+      Explore policies
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeAll()">&#x2715;</button>
+    <div class="modal-who" id="m-who"></div>
+    <div class="modal-intro" id="m-intro"></div>
+    <div class="modal-section-title">Key policy options</div>
+    <div class="modal-policies" id="m-policies"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   EDIT ALL POPUP CONTENT BELOW
+   Replace every "Insert..." string with your own words.
+   ============================================================ */
+var data = {
+  retirees: {
+    who: 'Cost borne by retirees',
+    color: '#2d7a4a',
+    intro: 'Insert popup introduction here — 2 to 3 sentences explaining what this category means and who bears the cost.',
+    policies: [
+      { name: 'Insert policy name 1', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
+      { name: 'Insert policy name 2', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
+      { name: 'Insert policy name 3', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' }
+    ]
+  },
+  taxpayers: {
+    who: 'Cost borne by taxpayers',
+    color: '#0c5fa5',
+    intro: 'Insert popup introduction here — 2 to 3 sentences explaining what this category means and who bears the cost.',
+    policies: [
+      { name: 'Insert policy name 1', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
+      { name: 'Insert policy name 2', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
+      { name: 'Insert policy name 3', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' }
+    ]
+  },
+  future: {
+    who: 'Cost borne by future generations',
+    color: '#a32d2d',
+    intro: 'Insert popup introduction here — 2 to 3 sentences explaining what this category means and who bears the cost.',
+    policies: [
+      { name: 'Insert policy name 1', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
+      { name: 'Insert policy name 2', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
+      { name: 'Insert policy name 3', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' }
+    ]
+  }
+};
+
+function openModal(key) {
+  var d = data[key];
+  document.getElementById('m-who').textContent = d.who;
+  document.getElementById('m-who').style.color = d.color;
+  document.getElementById('m-intro').textContent = d.intro;
+
+  var pol = '';
+  d.policies.forEach(function(p) {
+    pol += '<div class="modal-policy"><div class="modal-policy-name">' + p.name + '</div><div class="modal-policy-desc">' + p.desc + '</div></div>';
+  });
+  document.getElementById('m-policies').innerHTML = pol;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal(e) { if (e.target === document.getElementById('overlay')) closeAll(); }
+function closeAll() { document.getElementById('overlay').classList.remove('open'); }
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
+</script>
+</body></html>
