@@ -8,114 +8,143 @@ body { font-family: sans-serif; padding: 24px; background: transparent; color: #
 
 .policy-row {
   display: flex; align-items: stretch;
-  margin-bottom: 24px; border: 1px solid #e8e8e8;
-  border-radius: 12px; overflow: hidden;
+  margin-bottom: 28px; border-radius: 14px; overflow: hidden;
+  border: none;
 }
+
 .policy-image-wrap {
-  flex: 0 0 280px; position: relative;
-  cursor: pointer; overflow: hidden; min-height: 220px;
+  flex: 0 0 300px; position: relative;
+  cursor: pointer; overflow: hidden; min-height: 260px;
 }
 .policy-image-wrap img {
   width: 100%; height: 100%; object-fit: cover;
   display: block; transition: opacity 0.2s;
 }
-.policy-image-wrap:hover img { opacity: 0.88; }
+.policy-image-wrap:hover img { opacity: 0.85; }
+
 .img-placeholder {
-  width: 100%; height: 100%; min-height: 220px;
+  width: 100%; height: 100%; min-height: 260px;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 10px;
+  align-items: center; justify-content: center; gap: 14px;
 }
-.policy-image-wrap:hover .img-placeholder { opacity: 0.8; }
-.img-placeholder svg { width: 36px; height: 36px; opacity: 0.5; }
-.img-placeholder-label { font-size: 12px; font-weight: 600; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.05em; }
-.click-hint {
-  position: absolute; bottom: 12px; left: 12px;
-  background: rgba(0,0,0,0.5); color: #fff;
-  font-size: 11px; font-weight: 600;
-  padding: 4px 10px; border-radius: 20px; pointer-events: none;
-}
+.policy-image-wrap:hover .img-placeholder { opacity: 0.85; }
+.img-placeholder svg { width: 52px; height: 52px; opacity: 0.7; }
+.img-placeholder-label { font-size: 12px; font-weight: 700; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.07em; }
+
 .policy-text {
-  flex: 1; padding: 28px; background: #fff;
+  flex: 1; padding: 32px 36px;
   display: flex; flex-direction: column; justify-content: center;
 }
-.policy-who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
-.policy-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
-.policy-summary { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 18px; }
-.policy-cta {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600; cursor: pointer;
-  width: fit-content; padding: 8px 16px;
-  border-radius: 8px; border: 1px solid; transition: background 0.15s;
+.policy-who {
+  font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 10px; opacity: 0.75;
 }
+.policy-intro {
+  font-size: 17px; font-weight: 600; line-height: 1.5;
+  margin-bottom: 16px;
+}
+.policy-bullets {
+  list-style: none; padding: 0;
+  display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 24px;
+}
+.policy-bullets li {
+  font-size: 15px; line-height: 1.65;
+  padding-left: 20px; position: relative;
+}
+.policy-bullets li::before {
+  content: '';
+  position: absolute; left: 0; top: 9px;
+  width: 7px; height: 7px; border-radius: 50%;
+}
+.policy-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  width: fit-content; padding: 10px 20px;
+  border-radius: 8px; border: none; transition: opacity 0.15s;
+}
+.policy-cta:hover { opacity: 0.85; }
 .policy-cta svg { width: 14px; height: 14px; }
 
-/* RETIREES — green */
-.row-retirees .img-placeholder { background: #f0faf4; }
-.row-retirees .img-placeholder svg { stroke: #2d7a4a; }
-.row-retirees .img-placeholder-label { color: #2d7a4a; }
-.row-retirees .policy-who { color: #2d7a4a; }
-.row-retirees .policy-cta { color: #2d7a4a; border-color: #a8dbb9; background: #f0faf4; }
-.row-retirees .policy-cta:hover { background: #d8f0e2; }
+/* RETIREES — deep green */
+.row-retirees .policy-image-wrap .img-placeholder { background: #1a5c38; }
+.row-retirees .policy-image-wrap .img-placeholder svg { stroke: #7dd9a8; }
+.row-retirees .policy-image-wrap .img-placeholder-label { color: #7dd9a8; }
+.row-retirees .policy-text { background: #f0faf4; }
+.row-retirees .policy-who { color: #0f4a2a; }
+.row-retirees .policy-intro { color: #0f4a2a; }
+.row-retirees .policy-bullets li { color: #1a5c38; }
+.row-retirees .policy-bullets li::before { background: #2d7a4a; }
+.row-retirees .policy-cta { background: #2d7a4a; color: #fff; }
 
-/* TAXPAYERS — blue */
-.row-taxpayers .img-placeholder { background: #e8f4fd; }
-.row-taxpayers .img-placeholder svg { stroke: #0c5fa5; }
-.row-taxpayers .img-placeholder-label { color: #0c5fa5; }
-.row-taxpayers .policy-who { color: #0c5fa5; }
-.row-taxpayers .policy-cta { color: #0c5fa5; border-color: #b5d4f4; background: #e8f4fd; }
-.row-taxpayers .policy-cta:hover { background: #d0e9f9; }
+/* TAXPAYERS — deep blue */
+.row-taxpayers .policy-image-wrap .img-placeholder { background: #0a3d6b; }
+.row-taxpayers .policy-image-wrap .img-placeholder svg { stroke: #7dc3f5; }
+.row-taxpayers .policy-image-wrap .img-placeholder-label { color: #7dc3f5; }
+.row-taxpayers .policy-text { background: #e8f4fd; }
+.row-taxpayers .policy-who { color: #073057; }
+.row-taxpayers .policy-intro { color: #073057; }
+.row-taxpayers .policy-bullets li { color: #0c5fa5; }
+.row-taxpayers .policy-bullets li::before { background: #0c5fa5; }
+.row-taxpayers .policy-cta { background: #0c5fa5; color: #fff; }
 
-/* FUTURE GENERATIONS — red */
-.row-future .img-placeholder { background: #fdf0f0; }
-.row-future .img-placeholder svg { stroke: #a32d2d; }
-.row-future .img-placeholder-label { color: #a32d2d; }
-.row-future .policy-who { color: #a32d2d; }
-.row-future .policy-cta { color: #a32d2d; border-color: #f0bebe; background: #fdf0f0; }
-.row-future .policy-cta:hover { background: #f7dada; }
+/* FUTURE — deep red */
+.row-future .policy-image-wrap .img-placeholder { background: #6b1a1a; }
+.row-future .policy-image-wrap .img-placeholder svg { stroke: #f5a0a0; }
+.row-future .policy-image-wrap .img-placeholder-label { color: #f5a0a0; }
+.row-future .policy-text { background: #fdf0f0; }
+.row-future .policy-who { color: #5a1010; }
+.row-future .policy-intro { color: #5a1010; }
+.row-future .policy-bullets li { color: #a32d2d; }
+.row-future .policy-bullets li::before { background: #a32d2d; }
+.row-future .policy-cta { background: #a32d2d; color: #fff; }
 
 .overlay {
   display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.5); z-index: 100;
+  background: rgba(0,0,0,0.55); z-index: 100;
   align-items: center; justify-content: center; padding: 24px;
 }
 .overlay.open { display: flex; }
 .modal {
-  background: #fff; border-radius: 16px; padding: 36px;
-  max-width: 580px; width: 100%; max-height: 85vh;
+  background: #fff; border-radius: 16px; padding: 0;
+  max-width: 960px; width: 100%; max-height: 92vh;
   overflow-y: auto; position: relative;
 }
 .modal-close {
   position: absolute; top: 16px; right: 16px;
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 1px solid #ddd; background: #f5f5f5; cursor: pointer;
-  font-size: 16px; color: #666;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.2); cursor: pointer;
+  font-size: 16px; color: #fff;
   display: flex; align-items: center; justify-content: center;
+  z-index: 10;
 }
-.modal-close:hover { background: #eee; }
-.modal-who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 14px; }
-.modal-intro { font-size: 14px; color: #444; line-height: 1.7; margin-bottom: 4px; }
-.modal-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin: 20px 0 10px; }
-.modal-policies { display: flex; flex-direction: column; gap: 12px; }
-.modal-policy { background: #f7f7f7; border-radius: 8px; padding: 14px 16px; }
-.modal-policy-name { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
-.modal-policy-desc { font-size: 13px; color: #555; line-height: 1.65; }
+.modal-close:hover { background: rgba(255,255,255,0.35); }
+.modal-header {
+  padding: 40px 48px 36px;
+  border-radius: 16px 16px 0 0;
+}
+.modal-who { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; opacity: 0.8; color: #fff; }
+.modal-intro { margin-bottom: 0; }
+.modal-intro p { font-size: 16px; color: rgba(255,255,255,0.92); line-height: 1.75; margin-bottom: 14px; }
+.modal-intro p:last-child { margin-bottom: 0; }
+.modal-body { padding: 36px 48px 48px; }
+.modal-section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.09em; color: #888; margin: 0 0 16px; }
+.modal-policies { display: flex; flex-direction: column; gap: 16px; }
+.modal-policy {
+  background: #f7f7f7; border-radius: 10px; padding: 20px 22px;
+  border-left: 4px solid #ddd;
+}
+.modal-policy-name { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: #111; }
+.modal-policy p { font-size: 15px; color: #555; line-height: 1.75; margin-bottom: 10px; }
+.modal-policy p:last-child { margin-bottom: 0; }
 
 @media (max-width: 600px) {
   .policy-row { flex-direction: column; }
-  .policy-image-wrap { flex: 0 0 180px; }
+  .policy-image-wrap { flex: 0 0 200px; }
 }
 </style>
 </head><body>
-
-<!-- ============================================================
-     HOW TO EDIT THIS FILE
-     - IMAGES: put your image files in the same GitHub folder,
-       then replace "retirees.jpg" / "taxpayers.jpg" / "future.jpg"
-       with your actual filenames.
-     - CARD TEXT: replace every "Insert..." in the HTML below.
-     - POPUP TEXT: scroll to the <script> section at the bottom
-       and replace every "Insert..." inside the data object.
-     ============================================================ -->
 
 <!-- ROW 1: RETIREES -->
 <div class="policy-row row-retirees">
@@ -128,19 +157,16 @@ body { font-family: sans-serif; padding: 24px; background: transparent; color: #
       </svg>
       <span class="img-placeholder-label">Add image: retirees.jpg</span>
     </div>
-    <div class="click-hint">Click to explore</div>
   </div>
   <div class="policy-text">
     <div class="policy-who">Cost borne by retirees</div>
-    <div class="policy-summary">
-      <p style="font-size:15px;font-weight:500;color:#111;margin-bottom:10px;">Implementing policies such as increasing the state retirement age or removing the triple lock guarantee would improve pension sustainability, at the cost of current retirees:</p>
-      <ul style="list-style:disc;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-weight:400;color:#333;">
-        <li>The removal of the triple lock or increasing the retirement age would decrease the costs of the pension system, making it more resilient in the short term against the UK's demographic changes.</li>
-        <li>However these policies come at a clear trade-off to current retirees, as they would reduce the value of pensions or delay access to income, potentially increasing financial insecurity and lowering living standards among pensioners.</li>
-      </ul>
-    </div>
+    <div class="policy-intro">Implementing policies such as increasing the state retirement age or removing the triple lock guarantee would improve pension sustainability, at the cost of current retirees:</div>
+    <ul class="policy-bullets">
+      <li>The removal of the triple lock or increasing the retirement age would decrease the costs of the pension system, making it more resilient in the short term against the UK's demographic changes.</li>
+      <li>However these policies come at a clear trade-off to current retirees, as they would reduce the value of pensions or delay access to income, potentially increasing financial insecurity and lowering living standards among pensioners.</li>
+    </ul>
     <div class="policy-cta" onclick="openModal('retirees')">
-      Explore policies
+      Learn more
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </div>
   </div>
@@ -159,13 +185,16 @@ body { font-family: sans-serif; padding: 24px; background: transparent; color: #
       </svg>
       <span class="img-placeholder-label">Add image: taxpayers.jpg</span>
     </div>
-    <div class="click-hint">Click to explore</div>
   </div>
   <div class="policy-text">
     <div class="policy-who">Cost borne by taxpayers</div>
-    <div class="policy-summary">Insert summary text here — 2 to 3 sentences describing what this category of reform involves.</div>
+    <div class="policy-intro">Increasing National Insurance Contributions would directly raise revenue for the pension system, improving its sustainability without harming retirees:</div>
+    <ul class="policy-bullets">
+      <li>However, raising taxes on workers at a time when the UK is recovering from a cost of living crisis would put additional pressure on households already facing poor wage growth.</li>
+      <li>In addition, the workers funding the current system through higher contributions are unlikely to receive the same levels of benefits they are paying into, given the demographic pressures that will inevitably reshape the pension system.</li>
+    </ul>
     <div class="policy-cta" onclick="openModal('taxpayers')">
-      Explore policies
+      Learn more
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </div>
   </div>
@@ -183,13 +212,16 @@ body { font-family: sans-serif; padding: 24px; background: transparent; color: #
       </svg>
       <span class="img-placeholder-label">Add image: future.jpg</span>
     </div>
-    <div class="click-hint">Click to explore</div>
   </div>
   <div class="policy-text">
     <div class="policy-who">Cost borne by future generations</div>
-    <div class="policy-summary">Insert summary text here — 2 to 3 sentences describing what this category of reform involves.</div>
+    <div class="policy-intro">Rather than reforming the pension system today, the UK could continue funding pensions through government borrowing, deferring the cost to future taxpayers who have no say in decisions being made now:</div>
+    <ul class="policy-bullets">
+      <li>Maintaining the current system without reform allows today's pensioners and workers to avoid immediate pain, by adding to the national debt which future generations will be required to service and repay.</li>
+      <li>This is not a neutral choice, compound interest means deferred costs grow over time, and the UK's national debt already exceeds 100% of GDP. This limits the government's ability to spend on other priorities.</li>
+    </ul>
     <div class="policy-cta" onclick="openModal('future')">
-      Explore policies
+      Learn more
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </div>
   </div>
@@ -199,60 +231,112 @@ body { font-family: sans-serif; padding: 24px; background: transparent; color: #
 <div class="overlay" id="overlay" onclick="closeModal(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeAll()">&#x2715;</button>
-    <div class="modal-who" id="m-who"></div>
-    <div class="modal-intro" id="m-intro"></div>
-    <div class="modal-section-title">Key policy options</div>
-    <div class="modal-policies" id="m-policies"></div>
+    <div class="modal-header" id="m-header">
+      <div class="modal-who" id="m-who"></div>
+      <div class="modal-intro" id="m-intro"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">Key policy options</div>
+      <div class="modal-policies" id="m-policies"></div>
+    </div>
   </div>
 </div>
 
 <script>
-/* ============================================================
-   EDIT ALL POPUP CONTENT BELOW
-   Replace every "Insert..." string with your own words.
-   ============================================================ */
 var data = {
   retirees: {
     who: 'Cost borne by retirees',
     color: '#2d7a4a',
-    intro: 'Insert popup introduction here — 2 to 3 sentences explaining what this category means and who bears the cost.',
+    intro: [
+      'There is a growing perception among working-age people in the UK that the intergenerational wealth gap has widened too far, with the average retiree household holding a wealth of \u00a3554,000 compared to \u00a3130,000 for households under 35 (ONS). Many retirees today benefit from historically high property values, stamp duty exception and the triple lock guarantee, giving retirees advantages that future generations are unlikely to receive.',
+      'Reforms such as removing the triple lock, raising the state pension age, or introducing means-testing would reduce the generosity of the pension system for wealthier retirees, reducing the intergenerational wealth gap. Rather than requiring current workers to pay more into a pension system that may offer them less in return, these policies rebalance the burden towards those who may have already accumulated wealth, while improving the fiscal stability of the system.'
+    ],
     policies: [
-      { name: 'Insert policy name 1', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
-      { name: 'Insert policy name 2', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
-      { name: 'Insert policy name 3', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' }
+      {
+        name: 'Increasing the state retirement age',
+        desc: [
+          'The UK state pension age, the age at which people become eligible to claim, is currently 66 rising to 67 by 2028 and 68 by 2046. Each additional year is estimated to save approximately \u00a3570mn in spending annually by reducing the pensioner count by 200,000, making the system more financially balanced.',
+          'Raising the retirement age can be seen as a logical response to rising life expectancy, if people are living longer, spending more years in work before retirement is arguably proportionate. For someone retiring at 66 today with a life expectancy of 82, the ratio of working years to retirement years has shifted considerably compared to when the state pension was introduced in 1948 where life expectancy was just 66.',
+          'However, while raising the retirement age can act as a short-term stop gap, it is not a sustainable solution in isolation. The UK\u2019s old-age dependency ratio is projected to rise from around 28% today to over 40% in 2070 (OBR), a demographic shift that a modest increase in retirement age will do little to counteract. Furthermore, an increase in retirement age is regressive in its impact. Poorer individuals, for a range of reasons, have a lower life expectancy than those with higher incomes. This means that an increase in retirement age takes proportionately far more of a poorer person\u2019s retirement years.'
+        ]
+      },
+      {
+        name: 'Removing the triple lock',
+        desc: [
+          'The triple lock guarantee guarantees that the state pension increases each year by the highest of three measures: inflation, average wage growth or 2.5%. Introduced in 2010 it was designed to protect pensioners from real-term income losses. In practice it has consistently increased pension sizes faster than either GDP growth or NIC revenues, meaning that pension consumes a growing share of the economy each year.',
+          'This is financially unsustainable by definition, and demographic change makes it considerably worse. As the baby boomer generation ages, the number of people drawing the state pension will rise sharply, meaning the triple lock compounds an already deteriorating financial outlook. The OBR projects state pension spending rising from around 5% of GDP today to over 7% by 2070 without reform.'
+        ]
+      },
+      {
+        name: 'Means testing the pension',
+        desc: [
+          'Means testing the state pension would restrict the full pension to those below a certain income or wealth threshold. Rather than paying a flat rate to every eligible individual, pension entitlement would be assessed individually, concentrating support on those who need it the most while reducing overall spending.',
+          'Means testing would therefore improve the sustainability of the pension system, by concentrating spending on those most financially dependent on the state pension, the overall cost of the system falls without reducing support for those who genuinely need it. Means testing offers a more targeted path to fiscal balance, reducing expenditure on wealthier retirees who have other sources of income while preserving the pension as a meaningful safety net for those who rely on it entirely.',
+          'The introduction of means testing, however, would break one of the core principles on which the state pension was built. When the modern state pension was designed; universality was an intentional choice, a pension paid to all regardless of wealth was seen as an important social contract between the individual and the state. Withdrawing that entitlement retroactively would represent a breach in that contract, making it deeply unpopular with a generation that has spent their entire lives paying in on that basis.'
+        ]
+      }
     ]
   },
   taxpayers: {
     who: 'Cost borne by taxpayers',
     color: '#0c5fa5',
-    intro: 'Insert popup introduction here — 2 to 3 sentences explaining what this category means and who bears the cost.',
+    intro: [
+      'The UK workforce is already facing its highest tax burden in living memory, a consequence of frozen income tax thresholds, rising NIC rates, and stagnant real wage growth since the 2008 financial crisis. Despite this, a possible path to pension sustainability is to ask workers to contribute more, on the basis that alternative solutions bear their own trade-offs.',
+      'Policies in this category increase revenue for the pension system by taxing current workers more. The most direct lever is the employee NIC rate, though economists have also proposed broadening the base of who pays NIC rather than simply raising the rate.'
+    ],
     policies: [
-      { name: 'Insert policy name 1', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
-      { name: 'Insert policy name 2', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
-      { name: 'Insert policy name 3', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' }
+      {
+        name: 'Raising National Insurance Contributions',
+        desc: [
+          'The employee National Insurance Contribution rate is currently 8%, having been cut from 12% in April 2024 as part of the government\u2019s response to the cost of living crisis. NIC is paid by workers on earnings between \u00a312,570 and \u00a350,270 per year, and directly funds the pension system.',
+          'Each percentage point increase in the NIC rate raises approximately \u00a311.7bn in annual revenue, meaning a return to the 2024 rate of 12% would generate around \u00a346bn, enough to substantially close the current \u00a351bn funding gap between pension spending and NIC receipts.',
+          'However, raising NIC is not without significant drawbacks. It is a tax specifically on earned income, meaning it falls entirely on workers rather than those with wealth from property or investments. This is a regressive feature given that many of the wealthiest retirees pay no NIC at all on their pension or rental income. There is also a generational fairness argument, the workers paying higher NIC today are the same cohort least likely to benefit from the current system, given that demographic change will force further reform before they reach retirement age.'
+        ]
+      },
     ]
   },
   future: {
     who: 'Cost borne by future generations',
     color: '#a32d2d',
-    intro: 'Insert popup introduction here — 2 to 3 sentences explaining what this category means and who bears the cost.',
+    intro: [
+      'When neither retirees nor current workers bear the cost of pension promises, the burden falls on future generations through government borrowing. This is usually not an intentional policy choice, it can occur simply through inaction, as subsequent governments have no incentive to reform the pension system and invite the inevitable political backlash.',
+      'The UK\u2019s national debt already exceeds 100% of GDP. Continuing to fund the growing gap between pension spending and NIC revenue through borrowing adds to that burden, increasing debt interest payments and crowding out future public spending on health, infrastructure, and education.'
+    ],
     policies: [
-      { name: 'Insert policy name 1', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
-      { name: 'Insert policy name 2', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' },
-      { name: 'Insert policy name 3', desc: 'Insert policy description here — what it involves, how it works, and what its likely impact would be.' }
+      {
+        name: 'Government borrowing and fiscal inaction',
+        desc: [
+          'The gap between what the UK spends on state pensions and what it raises through National Insurance Contributions is approximately \u00a351bn per year. This shortfall is met through general taxation and borrowing. Without reform, the OBR projects this gap will widen significantly as the baby boomer generation ages and the triple lock continues to drive pension costs above GDP growth.',
+          'Choosing not to reform, or actively choosing to fund pensions through borrowing, passes this cost to future taxpayers. Those future taxpayers will not only inherit the debt itself, but also the interest accumulated on it, and will do so without having had any vote or say in the commitments made on their behalf.',
+          'There is a legitimate argument that future generations may be wealthier and better placed to absorb these costs. However, this assumed productivity growth would have to outpace the rate at which the interest is compounding for the national debt to fall, an assumption that carries significant risk.'
+        ]
+      }
     ]
   }
 };
 
+var colors = { retirees: '#2d7a4a', taxpayers: '#0c5fa5', future: '#a32d2d' };
+var headerBg = { retirees: '#1a5c38', taxpayers: '#0a3d6b', future: '#6b1a1a' };
+
 function openModal(key) {
   var d = data[key];
+  document.getElementById('m-header').style.background = headerBg[key];
   document.getElementById('m-who').textContent = d.who;
-  document.getElementById('m-who').style.color = d.color;
-  document.getElementById('m-intro').textContent = d.intro;
-
+  var introEl = document.getElementById('m-intro');
+  introEl.innerHTML = '';
+  d.intro.forEach(function(p) {
+    var el = document.createElement('p');
+    el.textContent = p;
+    introEl.appendChild(el);
+  });
   var pol = '';
   d.policies.forEach(function(p) {
-    pol += '<div class="modal-policy"><div class="modal-policy-name">' + p.name + '</div><div class="modal-policy-desc">' + p.desc + '</div></div>';
+    var descHtml = p.desc.map(function(para) {
+      return '<p>' + para + '</p>';
+    }).join('');
+    pol += '<div class="modal-policy" style="border-left-color:' + colors[key] + '">' +
+           '<div class="modal-policy-name" style="color:' + colors[key] + '">' + p.name + '</div>' +
+           descHtml + '</div>';
   });
   document.getElementById('m-policies').innerHTML = pol;
   document.getElementById('overlay').classList.add('open');
